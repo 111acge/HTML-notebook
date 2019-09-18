@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>javastcrip第二次课</title>
+</head>
+
+<body>
+<p id="demo-"></p>
+<div>
+    <button id="demo" type="button" onclick="displayimg()">
+        点击显示图片
+    </button>
+    <hr>
+</div>
+<div><p id="a"></p></div>
+
+<script>
+    function displayimg() {
+        var str1 = "";
+        for (let i = 0; i < 100; i++) {
+            str1 += "<img src='img/sqxy.png' height='20' width='60' alt='photo not found'>";
+        }
+        document.getElementById("a").innerHTML = str1;
+    }
+</script>
+<hr>
+<button onclick="document.getElementById('myImage').src='img/eg_bulbon.gif'">开灯</button>
+<img id="myImage" border="0" src="img/eg_bulboff.gif" style="text-align:center;">
+<button onclick="document.getElementById('myImage').src='img/eg_bulboff.gif'">关灯</button>
+<hr>
+<img src="img/eg_bulboff.gif" id="bulb" onclick="onoff()">
+<script>
+    function onoff()
+    {
+        const bulb = document.getElementById("bulb");
+        if (bulb.src.match("eg_bulbon.gif"))
+        {
+            bulb.src="img/eg_bulboff.gif";
+        }
+        else
+            {
+            bulb.src="img/eg_bulbon.gif";
+        }
+    }
+</script>
+</body>
+</html>
