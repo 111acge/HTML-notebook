@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>无标题文档</title>
+		<style type="text/css">
+			#myCanvas {
+				border: 1px solid #F00;
+				border-radius: 20px;
+				box-shadow: 0px 0px 10px 5px #CCC;
+			}
+
+			input {
+				background-color: #FC0;
+				padding: 5px;
+				border-radius: 16px;
+				cursor: pointer;
+				transition-duration: 0.2s;
+			}
+
+			input:hover {
+				border: 1px solid #000;
+				box-shadow: 0px 0px 10px 5px #CCC;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas" width="1000" height="500"></canvas>
+		<p align="center">
+			<input type="color" id="colorselector" onchange="colorChanged()">
+			<input type="range" id="lineruler" min="1" max="20" onchange="rulerChanged()">
+			<input type="button" id="backout" onclick="backout()" value="撤销">
+			<input type="button" id="eraser" onclick="eraser()" value="橡皮">
+			<input type="button" onclick="saveImage()" value="保存图像">
+			<input type="button" onclick="downImage()" value="下载图像">
+			<input type="button" onclick="drawRect()" value="画矩形">
+			<input type="button" onclick="drawLine()" value="画线">
+		</p>
+		<script type="text/javascript">
+			var can = document.getElementById("myCanvas");
+			var cxt = can.getContext("2d");
+			var colorselector = document.getElementById("colorselector");
+			var lineruler = document.getElementById("lineruler");
+			var color = "#000000";
+			var ruler = 1;
+			var imagedatas = [];
+
+			function colorChanged() { //改变颜色
+				//console.log(colorselector.value);
+				color = colorselector.value;
+			}
+
+			function rulerChanged() { //改变画笔粗细
+				ruler = lineruler.value;
+			}
+
+			function backout() {
+				cxt.putImageData(imagedatas.pop(), 0, 0); //从栈里面取一张照片放到画板上
+			}
+
+			function eraser() {
+				color = "#FFFFFF";
+			}
+
+			function saveImage() {
+				var image = can.toDataURL("image/png");
+				var w = window.open("about:blank", "image from canvas");
+				w.document.write("<img src='" + image + "'/>");
+			}
+
+			function downImage() {
+				var image = can.toDataURL("image/png").replace("image/png", "image/octet-stream");
+				window.location.href = image;
+			}
+
+			function drawLine() {
+				can.onmousedown = function(e) {
+					var imagedata = cxt.getImageData(0, 0, 1000, 500); //拍照
+					imagedatas.push(imagedata); //把照片放到栈里面
+					cxt.beginPath();
+					cxt.moveTo(e.pageX, e.pageY);
+					cxt.strokeStyle = color;
+					cxt.lineWidth = ruler;
+					cxt.lineCap = "round";
+					document.onmousemove = function(e) {
+						cxt.lineTo(e.pageX, e.pageY);
+						cxt.stroke();
+					}
+					document.onmouseup = function(e) {
+						document.onmousemove = null;
+						cxt.closePath();
+					}
+				}
+			}
+
+			function drawRect() {
+				can.onmousedown = function(e) {
+					var imagedata = cxt.getImageData(0, 0, 1000, 500); //拍照
+					imagedatas.push(imagedata); //把照片放到栈里面
+					cxt.beginPath();
+					cxt.moveTo(e.pageX, e.pageY);
+					cxt.strokeStyle = color;
+					cxt.lineWidth = ruler;
+					cxt.lineCap = "round";
+					var x = e.pageX;
+					var y = e.pageY;
+					document.onmousemove = function(e) {
+						cxt.putImageData(imagedatas[imagedatas.length - 1], 0, 0);
+						cxt.strokeRect(x, y, e.pageX - x, e.pageY - y);
+						cxt.stroke();
+					}
+					document.onmouseup = function(e) {
+						document.onmousemove = null;
+						cxt.closePath();
+					}
+				}
+			}
+			drawLine();
+			var img = new Image();
+			img.onload = function() {
+				cxt.drawImage(img, 300, 50);
+			}
+			img.src = "img/bg.png";
+		</script>
+	</body>
+</html>
