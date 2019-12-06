@@ -1,0 +1,59 @@
+<html>
+<head>
+<title> 网页布局</title>
+
+</head>
+<body>
+
+<div style="opacity:0.5;position:absolute;left:100xp;top:100px;'>
+<img src="img1.jpg" width="400px">
+</div>
+
+<table  border="1"  align="center">
+<tr style="background-color:#e9faff">
+<th   rowspan="2">班级</th>
+<th   colspan="2">学生信息</th><th colspan="2">学生成绩</th>
+</tr>
+<tr style="background-color:#e9faff">
+<th>学号</th><th>姓名</th>
+<th>语文</th><th>数学</th>
+</tr>
+<tr>
+<td rowspan="2">一班</td>
+<td>000001</td><td>lilei</td>
+<td>80</td><td>75</td>
+</tr>
+<tr>
+
+<td>000002</td><td>hanmeimei</td>
+<td>85</td><td>70</td>
+</tr>
+
+<tr>
+<td rowspan="2">二班</td>
+<td>002001</td><td>lucy</td>
+<td>80</td><td>75</td>
+</tr>
+<tr>
+
+<td>002002</td><td>lily</td>
+<td>85</td><td>70</td>
+</tr>
+</table>
+   <div id container style="width:500px">
+ <div id="header"  style="background-color:yellow;">
+<h1>网页标题</h1>
+</div>
+   <div id="menu" style="background-color:red;height:200px; width:100px;float:left">
+<b>菜单</b><br>
+HTML<br>
+CSS<br>
+JavaScript
+</div>
+   <div id="content" style="background-color:green; width:400px;height:200px;float:left">这是网页内容</div>
+ <div id="footer"  style="background-color:#00FFFF;width:500px;text-align:center">版权@xxTechnology.com
+</div>
+</div>
+
+</body>
+</html>

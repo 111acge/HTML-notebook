@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Title</title>
+    <script src="AjaxRequest.js" type="text/javascript"></script>
+</head>
+<body>
+<form action="http://shuxue61:8089/javaweb/dealajax.jsp">
+    <input type="text" name="sender" id="sender">
+    <input type="text" name="message" id="message">
+    <input type="button" onclick="sendmessage()" value="send">
+    <br>
+    <input type="file" id="file1" style="width: 400px;height: 400px">
+    <input type="button" value="send img" onclick="sendImg()">
+
+    <p id="p"></p>
+</form>
+<script>
+    function onerror() {
+        alert("unsuccessed")
+    }
+
+    function onload() {
+    }
+
+    function ongetsuccess() {
+        var ptxt = this.req.responseText;
+        var info = document.getElementById("p");
+        info.innerHTML = ptxt;
+    }
+
+    function ongeterror() {
+        alert("unsuccessed")
+    }
+
+    function sendmessage() {
+        var sender = document.getElementById("sender").value;
+        var message = document.getElementById("message").value;
+        var params = "sender=" + sender + "&message=" + message;
+        new net.AjaxRequest("http://shuxue61:8089/javaweb/dealajax.jsp", onload, onerror, "POST", params)
+    }
+
+    function sendImg() {
+        var formdata = new FormData();
+        var files = document.getElementById("file1").files;
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            formdata.append("myfile[]", file)
+        }
+        var sender = document.getElementById("sender").value;
+        formdata.append("sender", sender);
+        var xhr = new XMLHttpRequest();
+        var url = "http://shuxue61:8089/javaweb/servlet/UploadServlet";
+        xhr.open("POST", url, true);
+        xhr.send(formdata);
+    }
+
+    setInterval(
+        function () {
+            new net.AjaxRequest("http://shuxue61:8089/javaweb/getmessage.jsp", ongetsuccess, ongeterror, "POST", null)
+        }, 50
+    )
+</script>
+</body>
+</html>

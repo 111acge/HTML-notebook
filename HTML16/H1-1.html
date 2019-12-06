@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body {
+            background-image: url("IMG/bg.jpg");
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
+        .cont {
+            text-align: center;
+            margin: 100px;
+        }
+
+        .cont li {
+            display: inline-block;
+            width: 40px;
+            height: 200px;
+            background: white;
+            border-radius: 5px;
+            position: relative;
+            box-shadow: 0 0 5px 3px black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .cont span {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+        }
+
+        li.low ::after {
+            content: "·";
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100%;
+        }
+
+        li.high ::after {
+            content: "·";
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+        }
+    </style>
+    <script type="text/javascript">
+        document.onselectstart = function () {
+            return false;
+        }
+    </script>
+</head>
+<body>
+<ul id="cont" class="cont">
+
+    <li id="1" class="low"><span>1</span></li>
+    <li id="2" class="low"><span>2</span></li>
+    <li id="3" class="low"><span>3</span></li>
+    <li id="4" class="low"><span>4</span></li>
+    <li id="5" class="low"><span>5</span></li>
+    <li id="6" class="low"><span>6</span></li>
+    <li id="7" class="low"><span>7</span></li>
+    <li id="q"><span>1</span></li>
+    <li id="w"><span>2</span></li>
+    <li id="e"><span>3</span></li>
+    <li id="r"><span>4</span></li>
+    <li id="t"><span>5</span></li>
+    <li id="y"><span>6</span></li>
+    <li id="u"><span>7</span></li>
+    <li id="a" class="high"><span>1</span></li>
+    <li id="s" class="high"><span>2</span></li>
+    <li id="d" class="high"><span>3</span></li>
+    <li id="f" class="high"><span>4</span></li>
+    <li id="g" class="high"><span>5</span></li>
+    <li id="h" class="high"><span>6</span></li>
+    <li id="j" class="high"><span>7</span></li>
+</ul>
+<script type="text/javascript" src="h1-1.js"></script>
+</body>
+</html>

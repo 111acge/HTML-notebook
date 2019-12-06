@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-size: 14px;
+            margin: 0;
+            width: 80%;
+        }
+
+        textarea {
+            vertical-align: top;
+            margin-top: 6px;
+            width: 100%;
+        }
+
+        input[type = button] {
+            width: 80px;
+            height: 24px;
+            line-height: 24px;
+            border: 1px solid #ff6600;
+            border-radius: 4px;
+            background-color: #ff6600;
+            color: white;
+            cursor: pointer;
+            padding: 4px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+<H1>mb</H1>
+<textarea id="memo" cols="60" rows="10"></textarea><BR>
+<input type="button" value="add" onclick="savestorage('memo')">
+<input type="button" value="clear" onclick="clearstorage('memo')">
+<p id="msg"></p>
+<script>
+    function $(id) {
+        return document.getElementById(id);
+    }
+
+    function savestorage(id) {
+        var text = $(id).value;
+        var time = new Date().getTime();
+        localStorage.setItem(time, text);
+        alert("have saved");
+        loadstorage("msg");
+    }
+
+    function loadstorage(id) {
+        var result = "<table border = '1'>";
+        for (var i = 0; i < localStorage.length; i++) {
+            var key = localStorage.key(i);
+            var value = localStorage.getItem(key);
+            var date = new Date();
+            date.setTime(key);
+            var datestr = date.toUTCString();
+            result += "<tr><td>" + value + "</td><td>" + datestr + "</td></tr>";
+        }
+        result += "</table>";
+        $(id).innerHTML = result;
+    }
+
+    function clearstorage() {
+        localStorage.clear();
+        alert("have cleared");
+        location.reload();
+    }
+</script>
+</body>
+</html>

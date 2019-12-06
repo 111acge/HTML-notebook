@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ul {
+            padding: 6px 6px;
+            list-style-type: none;
+        }
+
+        li {
+            margin: 6px
+        }
+    </style>
+</head>
+<body onload="pageload()">
+<form id="">
+    <fieldset>
+        <legend> 用户登录：</legend>
+        <ul>
+            <li>account:<input type="text" id="txtname"></li>
+            <li>password:<input type="password" id="txtpass"></li>
+            <li>save the password?<input type="checkbox" id="chksave"></li>
+            <li><input id="landing" type="button" onclick="butclick()" value="landing"></li>
+            <li><input id="reset" type="reset" value="cancel"></li>
+        </ul>
+    </fieldset>
+</form>
+<script>
+    function $(id) {
+        return document.getElementById(id);
+    }
+
+    function butclick() {
+        var strname = $("txtname").value;
+        var strpass = $("txtpass").value;
+        localStorage.setItem("keyname", strname);
+        if ($("chksave").checked) {
+            localStorage.setItem("keypass", strpass);
+        } else {
+            localStorage.removeItem("keypass");
+        }
+    }
+
+    function pageload() {
+        var strname = localStorage.getItem("keyname");
+        var strpass = localStorage.getItem("keypass");
+        if (strname) {
+            $("txtname").value = strname
+        }
+        if (strpass) {
+            $("txtpass").value = strpass
+        }
+
+    }
+</script>
+</body>
+</html>

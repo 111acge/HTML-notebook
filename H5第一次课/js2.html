@@ -1,0 +1,43 @@
+<html>
+<head>
+<title> javascript第二次课</title>
+</head>
+<body>
+  <script>
+  function displaydate()
+   {  alert("hello world");
+      document.getElementById("button").innerHTML=Date();
+   }
+function displayimg()
+  { 
+     for(var i=1;i<=100;i++)
+  {
+     document.write("<img height='10%' width='10%'src='img1.jpg' alt='图片资源不存在'>")
+   }
+}
+</script>
+<p id="demo"></p>
+<button id="button" type="button" onclick="displayimg()">
+点击显示花
+
+</button>
+<hr>
+<img  id="bulb" src="pic_bulbon.gif" onclick="onoff()">
+<script>
+function onoff()
+{ //alert("hello  word");
+   var bulb=document.getElementById("bulb");
+ if(bulb.src.match("pic_bulbon"))
+  {
+   bulb.src="pic_bulboff.gif";
+}
+  else
+{ 
+   bulb.src="pic_bulbon.gif";
+ }
+
+}
+
+</script>
+</body>
+</html>
