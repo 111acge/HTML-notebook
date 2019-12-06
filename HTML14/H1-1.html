@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .wrapper {
+            width: 500px;
+            height: 600px;
+            border: 1px solid #000;
+        }
+
+        .content {
+            width: 500px;
+            height: 500px;
+            position: relative;
+        }
+
+        .showImg img {
+            width: 500px;
+            height: 500px;
+        }
+
+        .moveBox {
+            width: 250px;
+            height: 250px;
+            background-image: url("img/move-box.png");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            position: absolute;
+            left: 125px;
+            top: 125px;
+        }
+
+        .bottomBox {
+            width: 500px;
+            height: 100px;
+        }
+
+        .bottomBox li {
+            width: 100px;
+            height: 100px;
+            float: left;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .bottomBox li img {
+            height: 100%;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .bottomBox li img:hover {
+            border: red 2px;
+        }
+
+        .bigImg {
+            background-image: url("img/2.png");
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            left: 105%;
+            top: 0;
+            border: darkgreen 1px;
+            background-size: 200% 200%;
+            background-position: 250px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper" class="wrapper">
+    <div id="content" class="content">
+        <div id="showImg" class="showImg">
+            <img src="img/2.png" alt="">
+        </div>
+        <div id="moveBox" class="moveBox">
+
+        </div>
+        <div class="bottomBox">
+            <ul>
+                <li><img src="img/1.png" class="listImg" alt=""></li>
+                <li><img src="img/2.png" class="listImg" alt=""></li>
+                <li><img src="img/3.png" class="listImg" alt=""></li>
+                <li><img src="img/4.png" class="listImg" alt=""></li>
+                <li><img src="img/5.png" class="listImg" alt=""></li>
+            </ul>
+        </div>
+        <div class="bigImg"></div>
+    </div>
+</div>
+</body>
+</html>

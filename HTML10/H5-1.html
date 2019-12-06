@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        function test() {
+            var text = document.getElementById("textarea").value;
+            var text1 = document.getElementById("h1").innerHTML;
+            var text2 = document.getElementById("h1").outerHTML;
+            var text3 = document.getElementsByTagName("html")[0].outerHTML;
+            var result = document.getElementById("result");
+            if (!window.Blob) {
+                result.innerHTML = "浏览器不支持Blob对象";
+            } else {
+                var blob = new Blob([text3]);
+            }
+            if (window.URL) {
+                result.innerHTML = "<a down href='>" + window.URL.createObjectURL(blob) + "' target='_blank'>blob对象文件下载</a>"
+            }
+        }
+    </script>
+</head>
+<body>
+<h1 id="h1" contenteditable="true">我是H1标签</h1>
+<textarea name="" cols="10" rows="6" id="textarea"></textarea>
+<button onclick="test()">创建Blob对象</button>
+<p id="result"></p>
+</body>
+</html>

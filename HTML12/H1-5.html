@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>photo</title>
+    <style type="text/css">
+        #mycanvas {
+            border: 1px solid #F00;
+            border-radius: 20px;
+            box-shadow: 0px 0px 8px 0px #ccc;
+        }
+
+        input {
+            background-color: yellowgreen;
+            padding: 5px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition-duration: 1s;
+        }
+
+        input:hover {
+            border: 1px solid black;
+            box-shadow: 0px 0px 10px 5px #ccc;
+        }
+    </style>
+</head>
+<body>
+<canvas id="mycanvas" style="" width="900" height="600"></canvas>
+<div align="">
+    <br>
+    <br>
+    <input type="color" id="colorselector" onchange="colorChanged()">
+    <input type="range" id="lineruler" min="1" max="20" onchange="rulerChanged()">
+    <input type="button" id="backout" onclick="backout()" value="backout" align="">
+    <input type="button" id="rubber" onclick="rubber()" value="rubber">
+    <input type="button" id="save" onclick="saveimg()" value="save">
+    <input type="button" id="download" onclick="downimg()" value="downimg">
+    <input type="button" id="rectangle" onclick="rectangle()" value="rectangle">
+</div>
+
+<script type="text/javascript">
+    var canvas = document.getElementById("mycanvas");
+    var cxt = canvas.getContext("2d");
+    var colorselector = document.getElementById("colorselector");
+    var lineruler = document.getElementById("lineruler");
+    var color = "#000000";
+    var ruler = 1;
+    var imgdatas = [];
+    var recdatas = [];
+    canvas.onmousedown = function (e) {
+        var imgdata = cxt.getImageData(0, 0, 900, 600);
+        imgdatas.push(imgdata);
+        cxt.beginPath();
+        cxt.moveTo(e.pageX, e.pageY);
+        cxt.strokeStyle = color;
+        cxt.lineWidth = ruler;
+        cxt.lineCap = "round";
+        document.onmousemove = function (e) {
+            cxt.lineTo(e.pageX, e.pageY);
+            cxt.stroke();
+        };
+        document.onmouseup = function (e) {
+            document.onmousemove = null;
+            cxt.closePath();
+        };
+    };
+
+    function colorChanged() {
+        //console.log(colorselector.value);
+        color = colorselector.value;
+    }
+
+    function rulerChanged() {
+        ruler = lineruler.value;
+    }
+
+    function backout() {
+        cxt.putImageData(imgdatas.pop(), 0, 0)
+
+    }
+
+    function rubber() {
+        color = "#FFFFFF";
+    }
+
+    function saveimg() {
+        var image = canvas.toDataURL("image/png");
+        var w = window.open("about:blank", "image from canvas");
+        w.document.write("<img src='" + image + " '/>");
+    }
+
+    function downimg() {
+        var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        window.location.href = image;
+    }
+
+    function rectangle() {
+
+        canvas.onmousedown = function (e) {
+            downfun(e)
+        };
+        canvas.onmousedown = null;
+        canvas.onmousemove = null;
+        canvas.onmouseup = null;
+
+
+        function draw(e) {
+            canvas.newx = e.pageX;
+            canvas.newy = e.pageY;
+            cxt.strokeStyle = "black";
+            cxt.strokeRect(canvas.x, canvas.y, canvas.newx - canvas.x, canvas.newy - canvas.y);
+            cxt.stroke();
+            cxt.clearRect(canvas.x, canvas.y, canvas.newx - canvas.x, canvas.newy - canvas.y);
+        }
+
+        function movedraw() {
+            cxt.strokeStyle = "black";
+            cxt.strokeRect(canvas.x, canvas.y, canvas.newx - canvas.x, canvas.newy - canvas.y);
+            cxt.stroke();
+            cxt.clearRect(canvas.x, canvas.y, canvas.newx - canvas.x, canvas.newy - canvas.y);
+
+        }
+
+        function downfun(e) {
+            canvas.x = e.pageX;
+            canvas.y = e.pageY;
+            ed = e;
+            canvas.onmousemove = function (ed) {
+                movefun(ed);
+            };
+        }
+
+        function movefun(e) {
+            ed = e;
+            canvas.onmouseup = function (ed) {
+                upfun(ed);
+            };
+
+        }
+
+        function upfun(e) {
+            canvas.onmousemove = null;
+            ed =e;
+
+            canvas.onmousemove = function (ed) {
+                endmovefun(ed);
+            };
+
+        }
+
+        function endmovefun(e) {
+            ed = e;
+            draw(ed);
+        }
+
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<canvas id="mycanvas" width="800" height="800"></canvas>
+		<script type="text/javascript">
+			var ctx = document.getElementById("mycanvas").getContext("2d");
+			var img = new Image();
+			img.onload = function() {
+				ctx.drawImage(img, 0, 0, 600, 610);
+				ctx.font = "26px Arial black";
+				ctx.shadowOffsetX = 3;
+				ctx.shadowOffsetY = 3;
+				ctx.shadowBlur = 2;
+				ctx.shadowColor = "rgba(0,0,0,0.9)";
+				ctx.fillStyle = "yellow";
+				ctx.fillText("小摄影家", 260, 380)
+			};
+			img.src = "img/bg.png";
+		</script>
+	</body>
+</html>
